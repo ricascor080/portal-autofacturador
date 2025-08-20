@@ -1,0 +1,22 @@
+[MASTER]
+# Ignorar migraciones de Django y archivos de pruebas auto-generados
+ignore=migrations,tests
+
+[MESSAGES CONTROL]
+# Desactivar reglas molestas para Django
+disable=C0114,C0115,C0116,  # docstrings
+        C0103,              # nombres tipo app_name
+        C0301,              # líneas largas
+        C0411               # orden de imports
+
+[FORMAT]
+# Ancho máximo de línea (ajústalo a tu gusto, 100 es razonable)
+max-line-length=100
+
+[TYPECHECK]
+# Ignorar clases que pylint no puede inferir (Django crea atributos dinámicos)
+ignored-classes=Question,Choice
+
+[REPORTS]
+# Solo mostrar la calificación final, no reportes extendidos
+reports=no
