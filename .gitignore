@@ -1,0 +1,29 @@
+# Archivos compilados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de entorno/virtualenv
+.env
+*.env
+venv/
+env/
+.mi_entorno/
+.miproyecto_env/
+.venv/
+
+# Archivos de configuración de editores
+.vscode/
+.idea/
+
+# Archivos de base de datos de SQLite (si los usas)
+db.sqlite3
+
+# Archivos de logs
+*.log
+
+# Archivos de migraciones (opcional si no quieres versionarlas)
+# polls/migrations/
+
+# Archivos de cache
+*.cache
