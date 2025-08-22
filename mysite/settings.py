@@ -77,12 +77,11 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "autofacturador",
-        "USER": "ricardo",
-        "PASSWORD": "002385",  # cámbiala por la real
+        "NAME": "db_residencias",
+        "USER": "user_residencias",
+        "PASSWORD": "Res%3Nc1!4s.",  # cámbiala por la real
         "HOST": "127.0.0.1",
         "PORT": "5432",
-        "OPTIONS": {"gssencmode": "disable"},    # evita el error GSSAPI
     }
 }
 
