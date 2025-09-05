@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Usuario</title>
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background: #f0f4fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(to right, #2a5298, #1e3c72);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 { margin: 0; }
+
+        header form button {
+            background: #ff4b5c;
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .card h3 { margin-top: 0; color: #2a5298; }
+
+        .choices ul { list-style: none; padding: 0; }
+
+        .choices li {
+            margin: 8px 0;
+        }
+
+        button.vote-btn {
+            background: #1e3c72;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button.vote-btn:hover { background: #2a5298; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Bienvenido {{ user.username }}</h1>
+    <form action="{% url 'polls:logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Cerrar sesión</button>
+    </form>
+</header>
+
+<div class="container">
+    <h2>📋 Preguntas disponibles</h2>
+
+    {% if questions %}
+        {% for q in questions %}
+            <div class="card">
+                <h3>{{ q.question_text }}</h3>
+                <small>Publicada el {{ q.pub_date|date:"d/m/Y H:i" }}</small>
+                <div class="choices">
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="question_id" value="{{ q.id }}">
+                        <ul>
+                            {% for choice in q.choices.all %}
+                                <li>
+                                    <label>
+                                        <input type="radio" name="choice_id" value="{{ choice.id }}">
+                                        {{ choice.choice_text }}
+                                    </label>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <button type="submit" class="vote-btn">Votar</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No hay preguntas disponibles.</p>
+    {% endif %}
+
+    <h2>🗳️ Mis votaciones</h2>
+    {% if my_votes %}
+        <ul>
+            {% for v in my_votes %}
+                <li>
+                    Pregunta: <b>{{ v.question.question_text }}</b> <br>
+                    Opción elegida: <span style="color:#1e3c72">{{ v.choice.choice_text }}</span> <br>
+                    Fecha: {{ v.voted_at|date:"d/m/Y H:i" }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No has votado en ninguna pregunta todavía.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>

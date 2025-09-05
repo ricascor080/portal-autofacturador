@@ -3,11 +3,18 @@
 ignore=migrations,tests
 
 [MESSAGES CONTROL]
-# Desactivar reglas molestas para Django
-disable=C0114,C0115,C0116,  # docstrings
-        C0103,              # nombres tipo app_name
-        C0301,              # líneas largas
-        C0411               # orden de imports
+# Desactivar reglas molestas o irrelevantes para Django
+disable=
+    C0114,  # missing-module-docstring
+    C0115,  # missing-class-docstring
+    C0116,  # missing-function-docstring
+    C0103,  # invalid-name (ej: app_name en urls.py)
+    C0301,  # line-too-long
+    C0411,  # wrong-import-order
+    R0903,  # too-few-public-methods (común en models/forms)
+    R0901,  # too-many-ancestors (ej: UserCreationForm)
+    E1101,  # no-member (atributos dinámicos en Django)
+    W0613   # unused-argument (ej: request en signals)
 
 [FORMAT]
 # Ancho máximo de línea (ajústalo a tu gusto, 100 es razonable)
@@ -15,7 +22,7 @@ max-line-length=100
 
 [TYPECHECK]
 # Ignorar clases que pylint no puede inferir (Django crea atributos dinámicos)
-ignored-classes=Question,Choice
+ignored-classes=Question,Choice,Vote,User
 
 [REPORTS]
 # Solo mostrar la calificación final, no reportes extendidos
